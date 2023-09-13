@@ -4,11 +4,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <link rel="stylesheet" href="./styles/styles.css">
+  <link rel="stylesheet" href="./styles/page.css">
+  <link rel="stylesheet" href="./styles/media_queries.css">
+  <title>Calc</title>
 </head>
 
-<body>
+<body onload="onPage()">
+  <div class="container_main">
+    <div class="container_enter_values">
+      <input type="number" id="input_value" placeholder="Digite o valor">
+      <button onclick="setValue('sum')">SOMAR</button>
+      <button onclick="setValue('subtract')">SUBTRAIR</button>
+    </div>
 
+    <ul id="container_history" class="container_history">
+    </ul>
+
+    <div class="container_total">
+      <strong>Total:</strong>
+
+      <div class="value">
+        <strong>R$</strong>
+        <span id="content_value">0</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="./scripts/script.js"></script>
 </body>
 
 </html>

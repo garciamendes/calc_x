@@ -1,0 +1,25 @@
+@media only screen and (max-width: 1220px) {
+  .container_main {
+    width: 70%;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .container_main {
+    width: 100%;
+  }
+
+  .container_history {
+    padding-left: .5rem;
+  }
+
+  .container_enter_values {
+    margin-top: 0px;
+    border-radius: 0px;
+  }
+
+  .container_total {
+    margin-bottom: 0px;
+    border-radius: 0px;
+  }
+}

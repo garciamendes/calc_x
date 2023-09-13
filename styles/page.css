@@ -1,0 +1,105 @@
+.container_main {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 60%;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.container_enter_values {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: max-content;
+  padding: 0 1rem;
+  width: 100%;
+  background-color: var(--white);
+  margin-top: 1rem;
+  height: 70px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px var(--shadow);
+}
+
+.container_enter_values input {
+  padding: .9rem 0px .9rem .5rem;
+  flex: 1;
+  border: none;
+  background-color: var(--gray-7);
+  border-radius: 10px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.container_enter_values input::-webkit-outer-spin-button,
+.container_enter_values input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.container_enter_values input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.container_enter_values button {
+  cursor: pointer;
+  padding: .9rem 1rem;
+  margin-left: 1rem;
+  border: none;
+  background-color: var(--orange-dark);
+  border: 1px solid var(--orange-dark);
+  color: var(--white);
+  border-radius: 10px;
+  font-size: 1rem;
+  outline: none;
+  transition: .23s;
+}
+.container_enter_values button:hover {
+  background-color: transparent;
+  border: 1px solid var(--orange-dark);
+  color: var(--orange-dark);
+}
+
+.container_history {
+  overflow: auto;
+  display: flex;
+  flex-direction: column-reverse;
+  flex: 1;
+  margin-top: 0.3rem;
+  font-size: 1.3rem;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.container_history li > strong {
+  color: var(--red-dark);
+}
+.container_history li > span {
+  color: var(--gray-1);
+}
+
+.container_history::-webkit-scrollbar {
+  width: 0;
+}
+
+.container_total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: max-content;
+  width: 100%;
+  background-color: var(--white);
+  margin-bottom: 1rem;
+  height: 70px;
+  border-radius: 10px;
+  padding: 0 1rem;
+  font-size: 1.4rem;
+  box-shadow: 0px 0px 10px var(--shadow);
+}
+
+.container_total > strong {
+  color: var(--green-dark);
+}
+.value strong {
+  color: var(--red-dark);
+}
