@@ -1,4 +1,4 @@
-function setHistory(value) {
+function setHistory(value, type) {
   var containerHistory = document.getElementById("container_history")
 
   const contentLi = document.createElement('li')
@@ -7,7 +7,7 @@ function setHistory(value) {
   strongElement.innerText = 'R$ '
 
   const spanElement = document.createElement('span')
-  spanElement.innerText = value
+  spanElement.innerText = `${type === 'sum' ? '+ ' : '- '}${value}`
 
   contentLi.appendChild(strongElement)
   contentLi.appendChild(spanElement)
@@ -18,9 +18,10 @@ function setHistory(value) {
 /**
  *
  * @param {string} inputValue
+ * @param {'sum' | 'subtract'} type
  * @param {boolean} isOnLoad
  */
-function addHistory(inputValue, isOnLoad = false) {
+function addHistory(inputValue, type, isOnLoad = false) {
   const historiesValuesStringGet = sessionStorage.getItem('histories_values')
   const historiesValues = JSON.parse(historiesValuesStringGet) || []
 
@@ -30,17 +31,21 @@ function addHistory(inputValue, isOnLoad = false) {
   }
 
   if (inputValue) {
-    let newArray = [...historiesValues, Number(inputValue)]
+    let valueTohistory = `${type === 'sum' ? '+' : '-'} ${inputValue}`
+    let newArray = [...historiesValues, valueTohistory]
     const historiesValuesString = JSON.stringify(newArray)
     sessionStorage.setItem('histories_values', historiesValuesString)
   }
 
   if (isOnLoad) {
     for (let historyValue of historiesValues) {
-      setHistory(historyValue)
+      let [type, value] = historyValue?.split(' ')
+
+      console.log(type, value)
+      setHistory(value, type === '+' ? 'sum' : 'subtract')
     }
   } else {
-    setHistory(inputValue)
+    setHistory(Number(inputValue), type)
   }
 }
 
@@ -53,14 +58,16 @@ function setInfoTotal(newValue, isOnLoad) {
   var containerTotalValue = document.getElementById("content_value")
   let totalValue = Number(sessionStorage.getItem('total_value'))
 
-  if (isOnLoad && !totalValue) {
+  if (isOnLoad && !totalValue && !newValue) {
     sessionStorage.setItem('total_value', 0)
+
+    let final_value = Number(sessionStorage.getItem('total_value')).toFixed(2)
+    containerTotalValue.innerText = final_value
     return
   }
 
   if (totalValue) {
-    totalValue = newValue ? newValue : totalValue
-    sessionStorage.setItem('total_value', totalValue)
+    sessionStorage.setItem('total_value', newValue)
   }
 
   if (!totalValue) {
@@ -74,19 +81,13 @@ function setInfoTotal(newValue, isOnLoad) {
 function sum(value) {
   let totalValue = Number(sessionStorage.getItem('total_value')) || null
 
-  if (totalValue)
-    return value + totalValue
-
-  return value
+  return value + totalValue
 }
 
 function subtract(value) {
   let totalValue = Number(sessionStorage.getItem('total_value')) || null
 
-  if (totalValue)
-    return totalValue - value
-
-  return value
+  return totalValue - value
 }
 
 function setValue(type) {
@@ -99,15 +100,15 @@ function setValue(type) {
   switch (type) {
     case 'sum':
       totalValue = sum(Number(inputValue))
+      addHistory(inputValue, 'sum')
       break;
     case 'subtract':
       totalValue = subtract(Number(inputValue))
+      addHistory(inputValue, 'subtract')
       break;
     default:
       break;
   }
-
-  addHistory(inputValue)
 
   setInfoTotal(totalValue)
   document.getElementById("input_value").value = ''
@@ -115,5 +116,5 @@ function setValue(type) {
 
 function onPage() {
   setInfoTotal(null, true)
-  addHistory('', true)
+  addHistory('', '', true)
 }
