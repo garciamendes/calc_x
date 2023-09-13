@@ -41,7 +41,6 @@ function addHistory(inputValue, type, isOnLoad = false) {
     for (let historyValue of historiesValues) {
       let [type, value] = historyValue?.split(' ')
 
-      console.log(type, value)
       setHistory(value, type === '+' ? 'sum' : 'subtract')
     }
   } else {
@@ -66,11 +65,12 @@ function setInfoTotal(newValue, isOnLoad) {
     return
   }
 
-  if (totalValue) {
-    sessionStorage.setItem('total_value', newValue)
+  if (totalValue && newValue) {
+    let value = newValue >= 0 ? newValue : totalValue
+    sessionStorage.setItem('total_value', value)
   }
 
-  if (!totalValue) {
+  if (!totalValue && newValue) {
     sessionStorage.setItem('total_value', newValue)
   }
 
