@@ -44,11 +44,16 @@ function addHistory(inputValue, isOnLoad = false) {
   }
 }
 
-function setInfoTotal(newValue) {
+/**
+ *
+ * @param {number} newValue
+ * @param {boolean} isOnLoad
+ */
+function setInfoTotal(newValue, isOnLoad) {
   var containerTotalValue = document.getElementById("content_value")
   let totalValue = Number(sessionStorage.getItem('total_value'))
 
-  if (!newValue && !totalValue) {
+  if (isOnLoad && !totalValue) {
     sessionStorage.setItem('total_value', 0)
     return
   }
@@ -62,7 +67,7 @@ function setInfoTotal(newValue) {
     sessionStorage.setItem('total_value', newValue)
   }
 
-  let final_value = totalValue.toFixed(2)
+  let final_value = Number(sessionStorage.getItem('total_value')).toFixed(2)
   containerTotalValue.innerText = final_value
 }
 
@@ -104,11 +109,11 @@ function setValue(type) {
 
   addHistory(inputValue)
 
-  document.getElementById("input_value").value = ''
   setInfoTotal(totalValue)
+  document.getElementById("input_value").value = ''
 }
 
 function onPage() {
-  setInfoTotal()
+  setInfoTotal(null, true)
   addHistory('', true)
 }
